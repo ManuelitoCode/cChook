@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chook</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['"JetBrains Mono"', 'monospace'],
+            },
+            colors: {
+              'hazard-yellow': '#FDEE00',
+            },
+            keyframes: {
+              blink: {
+                '0%, 100%': { opacity: 1 },
+                '50%': { opacity: 0 },
+              },
+              'pulse-glow': {
+                '0%, 100%': { 'box-shadow': '0 0 0 0 rgba(253, 238, 0, 0.4)' },
+                '50%': { 'box-shadow': '0 0 12px 3px rgba(253, 238, 0, 0.6)' },
+              },
+            },
+            animation: {
+              blink: 'blink 1s steps(1, start) infinite',
+              'pulse-glow': 'pulse-glow 2.5s ease-in-out infinite',
+            }
+          }
+        }
+      }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.25.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "remark-gfm": "https://aistudiocdn.com/remark-gfm@^4.0.1",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
+    "react-syntax-highlighter": "https://aistudiocdn.com/react-syntax-highlighter@15.5.0",
+    "react-syntax-highlighter/dist/esm/styles/prism": "https://aistudiocdn.com/react-syntax-highlighter@15.5.0/dist/esm/styles/prism.js",
+    "react-simple-code-editor": "https://esm.sh/react-simple-code-editor@0.13.1",
+    "prismjs/": "https://esm.sh/prismjs@1.29.0/",
+    "react-syntax-highlighter/": "https://aistudiocdn.com/react-syntax-highlighter@^15.6.6/",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@2",
+    "highlight.js": "https://esm.sh/highlight.js@11.9.0/lib/core",
+    "highlight.js/lib/languages/": "https://esm.sh/highlight.js@11.9.0/es/languages/",
+    "highlight.js/": "https://aistudiocdn.com/highlight.js@^11.11.1/"
+  }
+}
+</script>
+<style>
+  /* App Shell layout */
+  html, body, #root {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Custom styles for react-simple-code-editor to match app theme */
+  .code-editor-wrapper .prism-editor__textarea,
+  .code-editor-wrapper .prism-editor__pre {
+    background: #000 !important;
+    font-family: "JetBrains Mono", monospace !important;
+    font-size: 1.125rem !important; /* text-lg */
+    line-height: 1.75rem !important; /* leading-relaxed */
+    padding: 0 !important;
+    white-space: pre !important;
+    word-wrap: normal !important;
+  }
+  .code-editor-wrapper .prism-editor__textarea:focus {
+    outline: none;
+  }
+  /* Override prism-tomorrow's comment color to match our secondary text */
+  .token.comment, .token.prolog, .token.doctype, .token.cdata {
+    color: #888888 !important;
+  }
+
+  /* Custom styles for rendered markdown */
+  .roast-display {
+    line-height: 1.7; /* Adds space between lines */
+  }
+  .roast-display h2 {
+    color: #FDEE00;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem; 
+  }
+  .roast-display h3 {
+    color: #FAFAFA;
+    font-size: 1.2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .roast-display ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  .roast-display li {
+    margin-bottom: 1.75rem; /* Space between each issue */
+  }
+  .roast-display li ul {
+    padding-left: 20px;
+    margin-top: 0.75rem;
+  }
+  .roast-display li ul li {
+    margin-bottom: 0.5rem;
+  }
+  .roast-display code {
+    background-color: #FDEE00;
+    color: #000000;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body class="bg-black">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
